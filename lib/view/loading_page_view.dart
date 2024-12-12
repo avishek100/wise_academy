@@ -14,26 +14,12 @@ class LoadingPageView extends StatelessWidget {
             // App Logo
             Image.asset(
               'assets/images/wise_academy_logo.png',
-              height: 100,
+              height: 400,
             ),
             const SizedBox(height: 20),
-            // App Name and Tagline
-            const Column(
-              children: [
-                Text(
-                  'Wise Academy',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 40),
             // Progress Indicator
             const CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.orange),
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
             ),
           ],
         ),
