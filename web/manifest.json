@@ -1,6 +1,6 @@
 {
-    "name": "wise_academy_app",
-    "short_name": "wise_academy_app",
+    "name": "login_page",
+    "short_name": "login_page",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
