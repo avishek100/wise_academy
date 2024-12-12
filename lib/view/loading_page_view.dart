@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 
-class LoadingPageView extends StatelessWidget {
+class LoadingPageView extends StatefulWidget {
   const LoadingPageView({super.key});
 
+  @override
+  State<LoadingPageView> createState() => _LoadingPageViewState();
+}
+
+class _LoadingPageViewState extends State<LoadingPageView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
