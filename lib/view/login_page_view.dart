@@ -22,7 +22,7 @@ class LoginPageView extends StatelessWidget {
                 child: Column(
                   children: [
                     Image.asset(
-                      'assets/images/wise_academy_logo.png', // Replace with your logo asset
+                      'assets/images/wise_academy_logo.png',
                       height: 300,
                     ),
                   ],
@@ -82,8 +82,7 @@ class LoginPageView extends StatelessWidget {
                         ),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
-                            Navigator.pushNamed(context,
-                                '/signup'); // Ensure '/signup' is registered
+                            Navigator.pushNamed(context, '/signup');
                           },
                       ),
                     ],
@@ -105,8 +104,9 @@ class LoginPageView extends StatelessWidget {
               buildSocialButton(
                   "Login with Facebook", Colors.blue[900], Icons.facebook),
               const SizedBox(height: 10),
-              // buildSocialButton("Login with Google", Colors.red[700], Icons.google),
-              // const SizedBox(height: 10),
+              buildSocialButton(
+                  "Login with Google", Colors.red[700], Icons.facebook),
+              const SizedBox(height: 10),
               buildSocialButton("Login with Apple", Colors.black, Icons.apple),
             ],
           ),
