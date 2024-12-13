@@ -37,7 +37,7 @@ class LoginPageView extends StatelessWidget {
                 alignment: Alignment.centerRight,
                 child: TextButton(
                   onPressed: () {
-                    // Add forgot password functionality
+                    // Add forgot password functionality here
                   },
                   child: const Text(
                     "Forgot Password?",
@@ -55,12 +55,13 @@ class LoginPageView extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {
-                  // Add login functionality
+                  // Simulate successful login and redirect to dashboard
+                  Navigator.pushReplacementNamed(context, '/dashboard');
                 },
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Sign Up", style: TextStyle(fontSize: 18)),
+                    Text("Login", style: TextStyle(fontSize: 18)),
                     SizedBox(width: 8),
                     Icon(Icons.arrow_forward, size: 18),
                   ],

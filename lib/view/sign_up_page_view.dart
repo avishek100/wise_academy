@@ -45,111 +45,29 @@ class _SignUpPageState extends State<SignUpPageView> {
                   ),
                 ),
                 const SizedBox(height: 20),
-
-                // First Name
-                TextFormField(
-                  decoration: const InputDecoration(
-                    labelText: 'First name',
-                    border: OutlineInputBorder(),
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter your first name';
-                    }
-                    return null;
-                  },
-                ),
+                buildTextField('First name', 'Please enter your first name'),
                 const SizedBox(height: 15),
-
-                // Last Name
-                TextFormField(
-                  decoration: const InputDecoration(
-                    labelText: 'Last name',
-                    border: OutlineInputBorder(),
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter your last name';
-                    }
-                    return null;
-                  },
-                ),
+                buildTextField('Last name', 'Please enter your last name'),
                 const SizedBox(height: 15),
-
-                // Email
-                TextFormField(
-                  decoration: const InputDecoration(
-                    labelText: 'Email',
-                    border: OutlineInputBorder(),
-                  ),
-                  validator: (value) {
-                    if (value == null || !value.contains('@')) {
-                      return 'Please enter a valid email';
-                    }
-                    return null;
-                  },
-                  onSaved: (value) {
-                    _email = value;
-                  },
-                ),
+                buildTextField('Email', 'Please enter a valid email',
+                    onSaved: (value) => _email = value),
                 const SizedBox(height: 15),
-
-                // Phone Number
-                TextFormField(
-                  decoration: const InputDecoration(
-                    labelText: 'Phone number',
-                    border: OutlineInputBorder(),
-                  ),
-                  validator: (value) {
-                    if (value == null || value.length != 10) {
-                      return 'Please enter a valid phone number';
-                    }
-                    return null;
-                  },
-                ),
+                buildTextField('Phone number',
+                    'Please enter a valid phone number (10 digits)'),
                 const SizedBox(height: 15),
-
-                // Password
-                TextFormField(
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                    labelText: 'Password',
-                    border: OutlineInputBorder(),
-                  ),
-                  validator: (value) {
-                    if (value == null || value.length < 6) {
-                      return 'Password must be at least 6 characters';
-                    }
-                    return null;
-                  },
-                  onSaved: (value) {
-                    _password = value;
-                  },
-                ),
+                buildTextField(
+                    'Password', 'Password must be at least 6 characters',
+                    isPassword: true, onSaved: (value) => _password = value),
                 const SizedBox(height: 15),
-
-                // Confirm Password
-                TextFormField(
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                    labelText: 'Confirm password',
-                    border: OutlineInputBorder(),
-                  ),
-                  validator: (value) {
-                    if (value == null || value.length < 6) {
-                      return 'Password must be at least 6 characters';
-                    }
-                    return null;
-                  },
-                ),
+                buildTextField('Confirm password',
+                    'Password must be at least 6 characters',
+                    isPassword: true),
                 const SizedBox(height: 15),
-
-                // Terms and Conditions Checkbox
                 Row(
                   children: [
                     Checkbox(
                       value: _isChecked,
-                      onChanged: (bool? value) {
+                      onChanged: (value) {
                         setState(() {
                           _isChecked = value ?? false;
                         });
@@ -163,17 +81,8 @@ class _SignUpPageState extends State<SignUpPageView> {
                     ),
                   ],
                 ),
-
-                // Sign Up Button
                 const SizedBox(height: 20),
                 ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                    minimumSize: const Size(double.infinity, 50),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       if (_isChecked) {
@@ -181,12 +90,12 @@ class _SignUpPageState extends State<SignUpPageView> {
                         Navigator.pushReplacementNamed(context, '/login',
                             arguments: {
                               'email': _email,
-                              'password': _password
+                              'password': _password,
                             });
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
-                            content: Text("Sign-up successful!"),
-                          ),
+                              content:
+                                  Text("Sign-up successful! Please log in.")),
                         );
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -197,6 +106,13 @@ class _SignUpPageState extends State<SignUpPageView> {
                       }
                     }
                   },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue,
+                    minimumSize: const Size(double.infinity, 50),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
                   child: const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -214,6 +130,27 @@ class _SignUpPageState extends State<SignUpPageView> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget buildTextField(String label, String errorMessage,
+      {bool isPassword = false, Function(String?)? onSaved}) {
+    return TextFormField(
+      obscureText: isPassword,
+      decoration: InputDecoration(
+        labelText: label,
+        border: const OutlineInputBorder(),
+      ),
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return errorMessage;
+        }
+        if (label == 'Phone number' && value.length != 10) {
+          return errorMessage;
+        }
+        return null;
+      },
+      onSaved: onSaved,
     );
   }
 }

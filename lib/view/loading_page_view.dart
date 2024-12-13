@@ -9,6 +9,15 @@ class LoadingPageView extends StatefulWidget {
 
 class _LoadingPageViewState extends State<LoadingPageView> {
   @override
+  void initState() {
+    super.initState();
+    // Redirect to login page after 3 seconds
+    Future.delayed(const Duration(seconds: 3), () {
+      Navigator.pushReplacementNamed(context, '/login');
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
