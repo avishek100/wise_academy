@@ -55,8 +55,8 @@ class LoginPageView extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {
-                  // Simulate successful login and redirect to dashboard
-                  Navigator.pushReplacementNamed(context, '/dashboard');
+                  // Simulate successful login and redirect to welcome page
+                  Navigator.pushReplacementNamed(context, '/welcome');
                 },
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
