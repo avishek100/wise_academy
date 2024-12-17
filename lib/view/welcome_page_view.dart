@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class WelcomePageView extends StatelessWidget {
   final String? userName;
 
-  const WelcomePageView({Key? key, this.userName}) : super(key: key);
+  const WelcomePageView({super.key, this.userName});
 
   @override
   Widget build(BuildContext context) {
@@ -32,19 +32,23 @@ class WelcomePageView extends StatelessWidget {
               ),
             const SizedBox(height: 30),
             ElevatedButton(
-              onPressed: () {
-                // Navigate to the dashboard or main page
-                Navigator.pushReplacementNamed(context, '/dashboard');
-              },
-              style: ElevatedButton.styleFrom(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
+                onPressed: () {
+                  // Navigate to the dashboard or main page
+                  Navigator.pushReplacementNamed(context, '/dashboard');
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor:
+                      Colors.blue, // Change this to your desired color
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                 ),
-              ),
-              child: const Text('Go to Dashboard'),
-            ),
+                child: const Text('Go to Dashboard',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ))),
           ],
         ),
       ),

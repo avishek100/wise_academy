@@ -61,9 +61,18 @@ class LoginPageView extends StatelessWidget {
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Login", style: TextStyle(fontSize: 18)),
+                    Text("Login",
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        )),
                     SizedBox(width: 8),
-                    Icon(Icons.arrow_forward, size: 18),
+                    Icon(
+                      Icons.arrow_forward,
+                      size: 18,
+                      color: Colors.white,
+                    ),
                   ],
                 ),
               ),
@@ -72,7 +81,10 @@ class LoginPageView extends StatelessWidget {
                 child: RichText(
                   text: TextSpan(
                     text: "Don't have an account? ",
-                    style: const TextStyle(color: Colors.black),
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
                     children: [
                       TextSpan(
                         text: "Create account",
@@ -106,7 +118,7 @@ class LoginPageView extends StatelessWidget {
                   "Login with Facebook", Colors.blue[900], Icons.facebook),
               const SizedBox(height: 10),
               buildSocialButton(
-                  "Login with Google", Colors.red[700], Icons.facebook),
+                  "Login with Google", Colors.red[700], Icons.g_mobiledata),
               const SizedBox(height: 10),
               buildSocialButton("Login with Apple", Colors.black, Icons.apple),
             ],

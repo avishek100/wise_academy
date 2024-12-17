@@ -13,7 +13,7 @@ class _LoadingPageViewState extends State<LoadingPageView> {
     super.initState();
     // Redirect to login page after 3 seconds
     Future.delayed(const Duration(seconds: 3), () {
-      Navigator.pushReplacementNamed(context, '/login');
+      Navigator.pushReplacementNamed(context, '/onboarding');
     });
   }
 
