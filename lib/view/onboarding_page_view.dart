@@ -17,7 +17,6 @@ class _OnboardingPageState extends State<OnboardingPageView> {
       body: SafeArea(
         child: Column(
           children: [
-            // PageView for 3 onboarding screens
             Expanded(
               child: PageView(
                 controller: _pageController,
@@ -27,31 +26,26 @@ class _OnboardingPageState extends State<OnboardingPageView> {
                   });
                 },
                 children: [
-                  // Page 1
                   buildOnboardingPage(
                     image: 'assets/images/onboard2.png',
                     title: 'Welcome to Wise Academy',
                     description:
                         'Learn Smart, Grow Fast – Wise Academy at Your Fingertips!',
                   ),
-                  // Page 2
                   buildOnboardingPage(
                     image: 'assets/images/onboard1.png',
                     title: 'Empowering Minds, One Click at a Time.',
                     description: 'Empowering Minds, One Click at a Time.',
                   ),
-                  // Page 3
                   buildOnboardingPage(
                     image: 'assets/images/onboard3.png',
                     title: 'Your Learning. Your Pace. Your Success',
-                    description:
-                        'Sign up or sign in to begin your travel experience.',
+                    description: 'Sign up or sign in to begin your Study.',
                   ),
                 ],
               ),
             ),
 
-            // Page Indicator Dots
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: List.generate(
@@ -62,7 +56,6 @@ class _OnboardingPageState extends State<OnboardingPageView> {
 
             const SizedBox(height: 20),
 
-            // Show Sign In and Sign Up Buttons only on the last page
             if (_currentPage == 2)
               Column(
                 children: [
@@ -132,7 +125,6 @@ class _OnboardingPageState extends State<OnboardingPageView> {
     );
   }
 
-  // Function to build each onboarding page
   Widget buildOnboardingPage({
     required String image,
     required String title,

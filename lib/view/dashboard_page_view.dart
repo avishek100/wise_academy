@@ -15,17 +15,14 @@ class DashboardPageView extends StatefulWidget {
 }
 
 class _DashboardPageViewState extends State<DashboardPageView> {
-  // Track the index of the selected tab
   int _selectedIndex = 0;
 
-  // List of pages to switch between
   final List<Widget> _pages = [
     const HomePage(),
     const CategoriesPage(),
     const ProfilePage(),
   ];
 
-  // Function to handle tab changes
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -35,18 +32,10 @@ class _DashboardPageViewState extends State<DashboardPageView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   backgroundColor: Colors.white,
-      //   elevation: 0,
-      //   title: Text(
-      //     'Hi, ${widget.userName}',
-      //     style: const TextStyle(color: Colors.black),
-      //   ),
-      // ),
-      body: _pages[_selectedIndex], // Display the selected page
+      body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
-        onTap: _onItemTapped, // Update the selected index
+        onTap: _onItemTapped,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),

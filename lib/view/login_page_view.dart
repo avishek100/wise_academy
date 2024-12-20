@@ -21,7 +21,7 @@ class LoginPage extends StatelessWidget {
                 child: Column(
                   children: [
                     Image.asset(
-                      'assets/images/wise_academy_logo.png', // Replace with your logo asset
+                      'assets/images/wise_academy_logo.png',
                       height: 300,
                     ),
                   ],
@@ -35,9 +35,7 @@ class LoginPage extends StatelessWidget {
               Align(
                 alignment: Alignment.centerRight,
                 child: TextButton(
-                  onPressed: () {
-                    // Add forgot password functionality
-                  },
+                  onPressed: () {},
                   child: const Text(
                     "Forgot Password?",
                     style: TextStyle(color: Colors.blue),

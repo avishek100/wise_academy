@@ -9,22 +9,20 @@ class SignUpPageView extends StatefulWidget {
 
 class _SignUpPageState extends State<SignUpPageView> {
   final _formKey = GlobalKey<FormState>();
-  bool _isChecked = false; // Checkbox state
+  bool _isChecked = false;
 
-  // Temporary storage for user credentials
   String? _email;
   String? _password;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text('Sign Up'),
         automaticallyImplyLeading: false,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () {
             Navigator.pop(context);
           },

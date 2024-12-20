@@ -13,8 +13,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Categories'),
-        // You can customize the color
-        elevation: 4, // You can adjust the elevation of the AppBar
+        elevation: 4,
       ),
       body: const Center(
         child: Text(

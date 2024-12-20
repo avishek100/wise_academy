@@ -14,8 +14,7 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Profile'),
-        // You can customize the color
-        elevation: 4, // You can adjust the elevation of the AppBar
+        elevation: 4,
       ),
       body: const Center(
         child: Text(

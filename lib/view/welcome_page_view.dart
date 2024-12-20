@@ -33,12 +33,10 @@ class WelcomePageView extends StatelessWidget {
             const SizedBox(height: 30),
             ElevatedButton(
                 onPressed: () {
-                  // Navigate to the dashboard or main page
                   Navigator.pushReplacementNamed(context, '/dashboard');
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor:
-                      Colors.blue, // Change this to your desired color
+                  backgroundColor: Colors.blue,
                   padding:
                       const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
                   shape: RoundedRectangleBorder(

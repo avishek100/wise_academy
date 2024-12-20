@@ -11,7 +11,7 @@ class _LoadingPageViewState extends State<LoadingPageView> {
   @override
   void initState() {
     super.initState();
-    // Redirect to login page after 3 seconds
+
     Future.delayed(const Duration(seconds: 3), () {
       Navigator.pushReplacementNamed(context, '/onboarding');
     });
@@ -25,13 +25,11 @@ class _LoadingPageViewState extends State<LoadingPageView> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // App Logo
             Image.asset(
               'assets/images/wise_academy_logo.png',
               height: 400,
             ),
             const SizedBox(height: 20),
-            // Progress Indicator
             const CircularProgressIndicator(
               valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
             ),
