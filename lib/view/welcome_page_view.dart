@@ -43,7 +43,7 @@ class WelcomePageView extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
-                child: const Text('Go to Dashboard',
+                child: const Text('Go to Home Page',
                     style: TextStyle(
                       color: Colors.white,
                     ))),

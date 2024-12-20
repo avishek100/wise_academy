@@ -35,10 +35,10 @@ class _DashboardPageViewState extends State<DashboardPageView> {
       body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.white,
-        currentIndex: _selectedIndex, // Highlight the selected item
-        onTap: _onItemTapped, // Handle item taps
-        selectedItemColor: Colors.blue, // Color for selected icon/text
-        unselectedItemColor: Colors.black, // Color for unselected icon/text
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
+        selectedItemColor: Colors.blue,
+        unselectedItemColor: Colors.black,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
