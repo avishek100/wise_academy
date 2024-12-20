@@ -24,7 +24,7 @@ class App extends StatelessWidget {
         '/login': (context) => LoginPage(),
         '/signup': (context) => const SignUpPageView(),
         '/dashboard': (context) => const DashboardPageView(
-              userName: 'Abhishek',
+              userName: 'abhishek',
             ),
         '/welcome': (context) => const WelcomePageView(),
       },

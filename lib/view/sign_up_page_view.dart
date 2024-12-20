@@ -20,6 +20,8 @@ class _SignUpPageState extends State<SignUpPageView> {
     return Scaffold(
       // backgroundColor: Colors.white,
       appBar: AppBar(
+        title: const Text('Sign Up'),
+        automaticallyImplyLeading: false,
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),

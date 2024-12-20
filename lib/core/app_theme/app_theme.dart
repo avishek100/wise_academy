@@ -2,17 +2,16 @@
 
 // ThemeData getApplicationTheme() {
 //   return ThemeData(
-//     primarySwatch: Colors.green,
-//     scaffoldBackgroundColor: Colors.blue,
+//     // primarySwatch: Colors.green,
+//     scaffoldBackgroundColor: Colors.white,
 //     fontFamily: 'Lato Bold',
 //     elevatedButtonTheme: ElevatedButtonThemeData(
 //       style: ElevatedButton.styleFrom(
 //         textStyle: const TextStyle(
 //             fontSize: 18,
-//             color: Color.fromARGB(255, 205, 42, 42),
 //             fontWeight: FontWeight.bold,
 //             fontFamily: ' Lato Regular'),
-//         backgroundColor: const Color.fromARGB(255, 69, 62, 51),
+//         backgroundColor: Colors.blue,
 //         shape: RoundedRectangleBorder(
 //           borderRadius: BorderRadius.circular(5),
 //         ),
