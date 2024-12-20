@@ -55,9 +55,14 @@ class LoginPage extends StatelessWidget {
                   children: [
                     Text(
                       "Sign Up",
+                      style: TextStyle(color: Colors.white),
                     ),
                     SizedBox(width: 8),
-                    Icon(Icons.arrow_forward, size: 18),
+                    Icon(
+                      Icons.arrow_forward,
+                      size: 18,
+                      color: Colors.white,
+                    ),
                   ],
                 ),
               ),
@@ -67,7 +72,8 @@ class LoginPage extends StatelessWidget {
                 child: RichText(
                   text: TextSpan(
                     text: "Don't have an account? ",
-                    style: const TextStyle(color: Colors.black),
+                    style: const TextStyle(
+                        color: Colors.black, fontWeight: FontWeight.bold),
                     children: [
                       TextSpan(
                         text: "Create account",

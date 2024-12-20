@@ -167,9 +167,9 @@ class _HomePageState extends State<HomePage> {
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.white,
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
-            color: Colors.grey.shade300,
+            color: Colors.blue,
             blurRadius: 5,
             spreadRadius: 1,
           ),

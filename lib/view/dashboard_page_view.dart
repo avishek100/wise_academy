@@ -34,8 +34,11 @@ class _DashboardPageViewState extends State<DashboardPageView> {
     return Scaffold(
       body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
+        backgroundColor: Colors.white,
+        currentIndex: _selectedIndex, // Highlight the selected item
+        onTap: _onItemTapped, // Handle item taps
+        selectedItemColor: Colors.blue, // Color for selected icon/text
+        unselectedItemColor: Colors.black, // Color for unselected icon/text
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),

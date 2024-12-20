@@ -73,6 +73,8 @@ class _OnboardingPageState extends State<OnboardingPageView> {
                         },
                         child: const Text(
                           'Log In',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, color: Colors.white),
                         ),
                       ),
                     ),
@@ -93,6 +95,8 @@ class _OnboardingPageState extends State<OnboardingPageView> {
                         },
                         child: const Text(
                           'Sign Up',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, color: Colors.black),
                         ),
                       ),
                     ),
