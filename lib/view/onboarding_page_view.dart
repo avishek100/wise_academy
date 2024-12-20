@@ -14,7 +14,6 @@ class _OnboardingPageState extends State<OnboardingPageView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: SafeArea(
         child: Column(
           children: [
@@ -75,20 +74,12 @@ class _OnboardingPageState extends State<OnboardingPageView> {
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(vertical: 15),
-                          backgroundColor: Colors.blue,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
                         ),
                         onPressed: () {
                           Navigator.pushNamed(context, '/login');
                         },
                         child: const Text(
                           'Log In',
-                          style: TextStyle(
-                            fontSize: 18, color: Colors.white,
-                            fontWeight: FontWeight.bold, // Bold text
-                          ),
                         ),
                       ),
                     ),
@@ -103,21 +94,12 @@ class _OnboardingPageState extends State<OnboardingPageView> {
                       child: OutlinedButton(
                         style: OutlinedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(vertical: 15),
-                          side: const BorderSide(color: Colors.blue),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
                         ),
                         onPressed: () {
                           Navigator.pushNamed(context, '/signup');
                         },
                         child: const Text(
                           'Sign Up',
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.blue,
-                            fontWeight: FontWeight.bold,
-                          ),
                         ),
                       ),
                     ),
