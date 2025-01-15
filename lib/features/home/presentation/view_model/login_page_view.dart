@@ -22,7 +22,7 @@ class LoginPage extends StatelessWidget {
                   children: [
                     Image.asset(
                       'assets/images/wise_academy_logo.png',
-                      height: 300,
+                      height: 270,
                     ),
                   ],
                 ),
@@ -38,7 +38,8 @@ class LoginPage extends StatelessWidget {
                   onPressed: () {},
                   child: const Text(
                     "Forgot Password?",
-                    style: TextStyle(color: Colors.blue),
+                    style: TextStyle(
+                        color: Colors.blue, fontWeight: FontWeight.bold),
                   ),
                 ),
               ),
@@ -50,23 +51,11 @@ class LoginPage extends StatelessWidget {
                 onPressed: () {
                   Navigator.pushNamed(context, '/welcome');
                 },
-                child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Sign Up",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    SizedBox(width: 8),
-                    Icon(
-                      Icons.arrow_forward,
-                      size: 18,
-                      color: Colors.white,
-                    ),
-                  ],
+                child: const Text(
+                  "Sign Up",
+                  style: TextStyle(color: Colors.white),
                 ),
               ),
-
               const SizedBox(height: 20),
               Center(
                 child: RichText(
@@ -103,12 +92,68 @@ class LoginPage extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 20),
-              buildSocialButton(
-                  "Login with Facebook", Colors.blue[900], Icons.facebook),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue[900],
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                ),
+                onPressed: () {
+                  // Handle Facebook login
+                },
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.facebook, color: Colors.white),
+                    SizedBox(width: 8),
+                    Text(
+                      "Login with Facebook",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ],
+                ),
+              ),
               const SizedBox(height: 10),
-              // buildSocialButton("Login with Google", Colors.red[700], Icons.google),
-              // const SizedBox(height: 10),
-              buildSocialButton("Login with Apple", Colors.black, Icons.apple),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.red,
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                ),
+                onPressed: () {
+                  // Handle Google login
+                },
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.g_mobiledata, color: Colors.white),
+                    SizedBox(width: 8),
+                    Text(
+                      "Login with Google",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 10),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.black,
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                ),
+                onPressed: () {
+                  // Handle Apple login
+                },
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.apple, color: Colors.white),
+                    SizedBox(width: 8),
+                    Text(
+                      "Login with Apple",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
@@ -128,20 +173,6 @@ class LoginPage extends StatelessWidget {
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30),
         ),
-      ),
-    );
-  }
-
-  Widget buildSocialButton(String text, Color? color, IconData icon) {
-    return ElevatedButton.icon(
-      style: ElevatedButton.styleFrom(
-        padding: const EdgeInsets.symmetric(vertical: 16),
-      ),
-      onPressed: () {},
-      icon: Icon(icon, color: Colors.white),
-      label: Text(
-        text,
-        style: const TextStyle(color: Colors.white),
       ),
     );
   }

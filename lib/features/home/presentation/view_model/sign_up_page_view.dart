@@ -106,6 +106,7 @@ class _SignUpPageState extends State<SignUpPageView> {
                     children: [
                       Text(
                         "Sign Up",
+                        style: TextStyle(color: Colors.white),
                       ),
                       SizedBox(width: 10),
                       Icon(
