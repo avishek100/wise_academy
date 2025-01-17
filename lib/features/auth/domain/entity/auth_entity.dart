@@ -30,3 +30,4 @@ class AuthEntity extends Equatable {
         password,
       ];
 }
+//m
