@@ -5,7 +5,6 @@ import '../view_model/signup/signup_bloc.dart';
 import '../view_model/signup/signup_event.dart';
 import '../view_model/signup/signup_state.dart';
 
-
 class SignUpView extends StatelessWidget {
   const SignUpView({super.key});
 
@@ -28,33 +27,33 @@ class SignUpView extends StatelessWidget {
                   children: [
                     buildTextField(
                       'First Name',
-                          (value) => bloc.add(FirstNameChanged(value)),
+                      (value) => bloc.add(FirstNameChanged(value)),
                     ),
                     const SizedBox(height: 15),
                     buildTextField(
                       'Last Name',
-                          (value) => bloc.add(LastNameChanged(value)),
+                      (value) => bloc.add(LastNameChanged(value)),
                     ),
                     const SizedBox(height: 15),
                     buildTextField(
                       'Email',
-                          (value) => bloc.add(EmailChanged(value)),
+                      (value) => bloc.add(EmailChanged(value)),
                     ),
                     const SizedBox(height: 15),
                     buildTextField(
                       'Phone',
-                          (value) => bloc.add(PhoneChanged(value)),
+                      (value) => bloc.add(PhoneChanged(value)),
                     ),
                     const SizedBox(height: 15),
                     buildTextField(
                       'Password',
-                          (value) => bloc.add(PasswordChanged(value)),
+                      (value) => bloc.add(PasswordChanged(value)),
                       isPassword: true,
                     ),
                     const SizedBox(height: 15),
                     buildTextField(
                       'Confirm Password',
-                          (value) => bloc.add(ConfirmPasswordChanged(value)),
+                      (value) => bloc.add(ConfirmPasswordChanged(value)),
                       isPassword: true,
                     ),
                     const SizedBox(height: 15),
