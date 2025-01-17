@@ -1,7 +1,13 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:food_delivery_application/app/app.dart';
+import 'package:food_delivery_application/app/di/di.dart';
+import 'package:food_delivery_application/core/network/hive_service.dart';
 
-import 'app/app.dart';
-
-void main() {
-  runApp(const App());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await HiveService().init();
+  await initDependencies();
+  runApp(
+    App(),
+  );
 }

@@ -1,23 +1,23 @@
-part of 'login_bloc.dart';
+part of 'register_bloc.dart';
 
-class LoginState {
+class RegisterState {
   final bool isLoading;
   final bool isSuccess;
 
-  LoginState({
+  RegisterState({
     required this.isLoading,
     required this.isSuccess,
   });
 
-  LoginState.initial()
+  RegisterState.initial()
       : isLoading = false,
         isSuccess = false;
 
-  LoginState copyWith({
+  RegisterState copyWith({
     bool? isLoading,
     bool? isSuccess,
   }) {
-    return LoginState(
+    return RegisterState(
       isLoading: isLoading ?? this.isLoading,
       isSuccess: isSuccess ?? this.isSuccess,
     );

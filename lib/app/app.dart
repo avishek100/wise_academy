@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-
-import '../features/auth/presentation/view/login_view.dart';
-import '../features/auth/presentation/view/signup_view.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:food_delivery_application/app/di/di.dart';
+import 'package:food_delivery_application/core/theme/app_theme.dart';
+import 'package:food_delivery_application/features/splash/presentation/view/splash_view.dart';
+import 'package:food_delivery_application/features/splash/presentation/view_model/splash_cubit.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -9,17 +11,13 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Login and Sign Up',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        scaffoldBackgroundColor: Colors.white,
+      debugShowCheckedModeBanner: false,
+      title: 'Wise Academy',
+      theme: AppTheme.getApplicationTheme(isDarkMode: false),
+      home: BlocProvider.value(
+        value: getIt<SplashCubit>(),
+        child: SplashView(),
       ),
-      initialRoute: '/signup',
-      routes: {
-        '/signup': (context) => const SignUpView(),
-        '/login': (context) =>
-            LoginView(), // Replace with your LoginPage implementation
-      },
     );
   }
 }
