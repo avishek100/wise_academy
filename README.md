@@ -1,4 +1,4 @@
-# abcd
+# wise_academy
 
 A new Flutter project.
 
