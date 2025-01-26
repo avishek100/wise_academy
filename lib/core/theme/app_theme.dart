@@ -1,55 +1,90 @@
+// import 'package:flutter/material.dart';
+
+// ThemeData getApplicationTheme() {
+//   return ThemeData(
+//     primarySwatch: Colors.orange,
+//     scaffoldBackgroundColor: Colors.white,
+//     fontFamily: 'Poppins Bold',
+//     elevatedButtonTheme: ElevatedButtonThemeData(
+//       style: ElevatedButton.styleFrom(
+//         textStyle: const TextStyle(
+//             fontSize: 16,
+//             color: Colors.white,
+//             fontWeight: FontWeight.w500,
+//             fontFamily: 'Poppins Regular'),
+//         backgroundColor: Colors.orange,
+//         shape: RoundedRectangleBorder(
+//           borderRadius: BorderRadius.circular(30),
+//         ),
+//       ),
+//     ),
+//   );
+// }
 import 'package:flutter/material.dart';
 
-ThemeData getApplicationTheme() {
-  return ThemeData(
-    primarySwatch: Colors.blue,
-    scaffoldBackgroundColor: Colors.white,
-    fontFamily: 'Lato Bold',
-    textTheme: const TextTheme(
-      bodyMedium: TextStyle(
-        fontSize: 16,
-        fontFamily: 'Lato Regular',
-      ), // Default for most text
-    ),
+import '../../app/constants/theme_constant.dart';
 
-    // Customizing the AppBar theme
-    appBarTheme: const AppBarTheme(
-      backgroundColor: Colors.blue, // AppBar background color
-      elevation: 4, // AppBar shadow
-      titleTextStyle: TextStyle(
-        color: Colors.white,
-        fontSize: 20, // Title font size
-        fontWeight: FontWeight.bold, // Title font weight
-      ),
-      iconTheme: IconThemeData(
-        color: Colors.black, // Icon color in the AppBar
-      ),
-      actionsIconTheme: IconThemeData(
-        color: Colors.black, // Icon color in actions
-      ),
-    ),
+class AppTheme {
+  AppTheme._();
 
-    elevatedButtonTheme: ElevatedButtonThemeData(
-      style: ElevatedButton.styleFrom(
-        textStyle: const TextStyle(
-          fontSize: 18,
-          color: Colors.white,
-          fontWeight: FontWeight.bold,
-          fontFamily: 'Lato Bold',
-        ),
+  static getApplicationTheme({required bool isDarkMode}) {
+    return ThemeData(
+      // Change app bar color
+      appBarTheme: const AppBarTheme(
+        elevation: 0,
         backgroundColor: Colors.blue,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5),
+        centerTitle: true,
+        titleTextStyle: TextStyle(
+          color: Colors.white,
+          fontSize: 20,
         ),
       ),
-    ),
-    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-      selectedLabelStyle: TextStyle(
-        fontFamily: 'Lato Regular', // Default for selected tab
+
+      // Change elevated button theme
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          elevation: 0,
+          foregroundColor: Colors.white,
+          backgroundColor: Colors.blue,
+          textStyle: const TextStyle(
+            fontSize: 20,
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
       ),
-      unselectedLabelStyle: TextStyle(
-        fontFamily: 'Lato Regular', // Default for unselected tabs
+
+      // Change text field theme
+      inputDecorationTheme: const InputDecorationTheme(
+        contentPadding: EdgeInsets.all(15),
+        border: OutlineInputBorder(),
+        labelStyle: TextStyle(
+          fontSize: 20,
+        ),
+        errorBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.red,
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: ThemeConstant.primaryColor,
+          ),
+        ),
       ),
-    ),
-  );
+      // Circular progress bar theme
+      progressIndicatorTheme: const ProgressIndicatorThemeData(
+        color: Colors.blue,
+      ),
+      //Bottom navigation bar theme
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+        backgroundColor: Colors.white,
+        selectedItemColor: Colors.blue,
+        unselectedItemColor: Colors.black,
+        type: BottomNavigationBarType.fixed,
+        elevation: 0,
+      ),
+    );
+  }
 }
