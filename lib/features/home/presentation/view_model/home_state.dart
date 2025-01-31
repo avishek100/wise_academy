@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../app/di/di.dart';
-import '../view/bottom_view/dashboard_page_view.dart';
 import 'home_cubit.dart';
 
 class HomeState extends Equatable {
