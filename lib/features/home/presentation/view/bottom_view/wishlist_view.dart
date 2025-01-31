@@ -9,7 +9,7 @@ class WishlistView extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         automaticallyImplyLeading: false,
-        backgroundColor: Colors.orange,
+        backgroundColor: Colors.blue,
         title: const Text(
           'Wishlist',
           style: TextStyle(
