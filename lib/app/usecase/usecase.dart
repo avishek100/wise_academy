@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
-
-import '../../core/error/failure.dart';
+import 'package:wise_academy/core/error/failure.dart';
 
 abstract interface class UseCaseWithParams<SuccessType, Params> {
   Future<Either<Failure, SuccessType>> call(Params params);

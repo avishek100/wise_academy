@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../view_model/home_cubit.dart';
-import '../view_model/home_state.dart';
+import 'package:wise_academy/features/home/presentation/view_model/home_cubit.dart';
+import 'package:wise_academy/features/home/presentation/view_model/home_state.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -23,7 +22,7 @@ class HomeView extends StatelessWidget {
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.favorite_border),
-                label: 'Bookmark',
+                label: 'Wishlist',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.shopping_cart_outlined),
@@ -40,7 +39,7 @@ class HomeView extends StatelessWidget {
             ],
             currentIndex: state.selectedIndex,
             backgroundColor: Colors.white,
-            selectedItemColor: Colors.blue,
+            selectedItemColor: Color(0xFFFE5404),
             unselectedItemColor: Colors.black,
             onTap: (index) {
               context.read<HomeCubit>().onTabTapped(index);

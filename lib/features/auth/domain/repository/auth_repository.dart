@@ -1,9 +1,8 @@
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
-
-import '../../../../core/error/failure.dart';
-import '../entity/auth_entity.dart';
+import 'package:wise_academy/core/error/failure.dart';
+import 'package:wise_academy/features/auth/domain/entity/auth_entity.dart';
 
 abstract interface class IAuthRepository {
   Future<Either<Failure, void>> registerCustomer(AuthEntity customer);

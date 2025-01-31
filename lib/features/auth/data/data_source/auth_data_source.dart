@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import '../../domain/entity/auth_entity.dart';
+import 'package:wise_academy/features/auth/domain/entity/auth_entity.dart';
 
 abstract interface class IAuthDataSource {
   Future<String> loginCustomer(String email, String password);

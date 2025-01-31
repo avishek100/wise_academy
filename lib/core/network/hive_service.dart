@@ -1,13 +1,12 @@
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart';
-
-import '../../app/constants/hive_table_constant.dart';
-import '../../features/auth/data/model/auth_hive_model.dart';
+import 'package:wise_academy/app/constants/hive_table_constant.dart';
+import 'package:wise_academy/features/auth/data/model/auth_hive_model.dart';
 
 class HiveService {
   Future<void> init() async {
     var directory = await getApplicationDocumentsDirectory();
-    var path = '${directory.path}wise_academy.db';
+    var path = '${directory.path}hunger_end.db';
 
     Hive.init(path);
     Hive.registerAdapter(AuthHiveModelAdapter());
