@@ -1,8 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:food_delivery_application/core/error/failure.dart';
-import 'package:food_delivery_application/features/auth/domain/use_case/login_usecase.dart';
-import 'package:mocktail/mocktail.dart';
 
 import 'repository.mock.dart';
 import 'token.mock.dart';
