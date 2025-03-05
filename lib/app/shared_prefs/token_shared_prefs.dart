@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
+import 'package:e_learning/core/error/failure.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:wise_academy/core/error/failure.dart';
 
 class TokenSharedPrefs {
   final SharedPreferences _sharedPreferences;
@@ -10,7 +10,7 @@ class TokenSharedPrefs {
   Future<Either<Failure, void>> saveToken(String token) async {
     try {
       await _sharedPreferences.setString('token', token);
-      return Right(null);
+      return const Right(null);
     } catch (e) {
       return Left(SharedPrefsFailure(message: e.toString()));
     }
@@ -20,6 +20,15 @@ class TokenSharedPrefs {
     try {
       final token = _sharedPreferences.getString('token');
       return Right(token ?? '');
+    } catch (e) {
+      return Left(SharedPrefsFailure(message: e.toString()));
+    }
+  }
+
+  Future<Either<Failure, void>> clearToken() async {
+    try {
+      await _sharedPreferences.remove('token');
+      return const Right(null);
     } catch (e) {
       return Left(SharedPrefsFailure(message: e.toString()));
     }

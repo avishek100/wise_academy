@@ -2,10 +2,10 @@ import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:food_delivery_application/core/error/failure.dart';
-import 'package:food_delivery_application/features/auth/domain/repository/auth_repository.dart';
-import 'package:food_delivery_application/features/auth/domain/use_case/upload_image_usecase.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:wise_academy/core/error/failure.dart';
+import 'package:wise_academy/features/auth/domain/repository/auth_repository.dart';
+import 'package:wise_academy/features/auth/domain/use_case/upload_image_usecase.dart';
 
 class MockAuthRepository extends Mock implements IAuthRepository {}
 

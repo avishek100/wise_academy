@@ -3,8 +3,8 @@ import 'package:dio/dio.dart';
 class DioErrorInterceptor extends Interceptor {
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
+    //handle server errors
     if (err.response != null) {
-      // Handle server errors
       if (err.response!.statusCode! >= 300) {
         err = DioException(
           requestOptions: err.requestOptions,
@@ -21,7 +21,7 @@ class DioErrorInterceptor extends Interceptor {
         );
       }
     } else {
-      // Handle connection errors
+      //handle conection errors
       err = DioException(
         requestOptions: err.requestOptions,
         error: 'Connection error',

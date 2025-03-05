@@ -11,10 +11,13 @@ class RegisterState extends Equatable {
     this.imageName,
   });
 
-  const RegisterState.initial()
-      : isLoading = false,
-        isSuccess = false,
-        imageName = null;
+  factory RegisterState.initial() {
+    return const RegisterState(
+      isLoading: false,
+      isSuccess: false,
+      imageName: null,
+    );
+  }
 
   RegisterState copyWith({
     bool? isLoading,
@@ -29,5 +32,6 @@ class RegisterState extends Equatable {
   }
 
   @override
-  List<Object?> get props => [isLoading, isSuccess, imageName];
+  List<Object?> get props =>
+      [isLoading, isSuccess, imageName]; // ✅ Required for comparison
 }

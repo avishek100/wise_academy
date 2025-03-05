@@ -1,5 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
+import 'package:wise_academy/core/error/failure.dart';
+import 'package:wise_academy/features/auth/domain/use_case/login_usecase.dart';
 
 import 'repository.mock.dart';
 import 'token.mock.dart';
@@ -13,17 +16,24 @@ void main() {
     repository = MockAuthRepository();
     tokenSharedPrefs = MockTokenSharedPrefs();
     usecase = LoginUseCase(repository, tokenSharedPrefs);
+
+    // Mock getToken to return a valid token
+    when(() => tokenSharedPrefs.getToken())
+        .thenAnswer((_) async => const Right('mocked_token'));
+
+    // Mock saveToken to return a successful response
+    when(() => tokenSharedPrefs.saveToken(any()))
+        .thenAnswer((_) async => const Right(null));
   });
 
-//Test case: for correct email and password
   test(
-      'should call the [AuthRepo.login] with correct email and password (santosh@gmail.com, santosh123)',
+      'should call the [AuthRepo.login] with correct email and password (abhishek, 1234)',
       () async {
     when(() => repository.loginCustomer(any(), any())).thenAnswer(
       (invocation) async {
         final email = invocation.positionalArguments[0] as String;
         final password = invocation.positionalArguments[1] as String;
-        if (email == 'santosh@gmail.com' && password == 'santosh123') {
+        if (email == 'abhishek@gmail.com' && password == '1234') {
           return Future.value(const Right('token'));
         } else {
           return Future.value(
@@ -32,27 +42,26 @@ void main() {
       },
     );
 
-    when(() => tokenSharedPrefs.saveToken(any())).thenAnswer(
-      (_) async => Right(null),
-    );
+    when(() => tokenSharedPrefs.saveToken(any()))
+        .thenAnswer((_) async => const Right(null));
 
-    final result = await usecase(LoginParams(
-      email: 'santosh@gmail.com',
-      password: 'santosh123',
+    when(() => tokenSharedPrefs.getToken())
+        .thenAnswer((_) async => const Right('mocked_token'));
+
+    final result = await usecase(const LoginParams(
+      email: 'abhishek@gmail.com',
+      password: '1234',
     ));
 
     expect(result, const Right('token'));
 
     verify(() => repository.loginCustomer(any(), any())).called(1);
     verify(() => tokenSharedPrefs.saveToken(any())).called(1);
+    verify(() => tokenSharedPrefs.getToken())
+        .called(1); // Explicitly verify this call
 
     verifyNoMoreInteractions(repository);
     verifyNoMoreInteractions(tokenSharedPrefs);
-  });
-
-  tearDown(() {
-    reset(repository);
-    reset(tokenSharedPrefs);
   });
 
 // Test:Incorrect email/password
@@ -64,7 +73,7 @@ void main() {
       (invocation) async {
         final email = invocation.positionalArguments[0] as String;
         final password = invocation.positionalArguments[1] as String;
-        if (email == 'santosh@gmail.com' && password == 'santosh123') {
+        if (email == 'abhishek@gmail.com' && password == '1234') {
           return Future.value(const Right('token')); // Success case
         } else {
           return Future.value(
@@ -128,8 +137,8 @@ void main() {
 
     // Act
     final result = await usecase(LoginParams(
-      email: 'santosh@gmail.com',
-      password: 'santosh123',
+      email: 'abhishek@gmail.com',
+      password: '1234',
     ));
 
     // Assert

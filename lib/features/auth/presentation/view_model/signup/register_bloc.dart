@@ -1,61 +1,44 @@
 import 'dart:io';
 
-import 'package:bloc/bloc.dart';
+import 'package:e_learning/core/common/snackbar/my_snackbar.dart';
+import 'package:e_learning/features/auth/domain/usecases/register_user_usecase.dart';
+import 'package:e_learning/features/auth/domain/usecases/upload_image_usecase.dart';
+import 'package:e_learning/features/auth/presentation/view/login_view.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:wise_academy/core/common/snackbar/my_snackbar.dart';
-import 'package:wise_academy/features/auth/domain/use_case/register_user_usecase.dart';
-import 'package:wise_academy/features/auth/domain/use_case/upload_image_usecase.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'register_event.dart';
 part 'register_state.dart';
 
 class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   final RegisterUseCase _registerUseCase;
+  // final LoginBloc _loginBloc;
   final UploadImageUsecase _uploadImageUsecase;
 
   RegisterBloc({
+    // required LoginBloc loginBloc,
     required RegisterUseCase registerUseCase,
-    required UploadImageUsecase uploadImageUsecase,
+    required UploadImageUsecase uploadImageUseCase,
   })  : _registerUseCase = registerUseCase,
-        _uploadImageUsecase = uploadImageUsecase,
+        _uploadImageUsecase = uploadImageUseCase,
+
+        // _loginBloc = loginBloc,
+
         super(RegisterState.initial()) {
-    on<RegisterCustomer>(_onRegisterEvent);
-    on<UploadImage>(_onLoadImage);
+    // on<NavigateLoginScreenEvent>((event, emit) {
+    //   Navigator.push(
+    //       event.context,
+    //       MaterialPageRoute(
+    //           builder: (context) => MultiBlocProvider(
+    //               providers: [BlocProvider.value(value: _loginBloc)],
+    //               child: event.destination)));
+    // });
+    on<RegisterUser>(_onRegisterEvent);
+    on<LoadImage>(_onLoadImage);
   }
 
-  void _onRegisterEvent(
-    RegisterCustomer event,
-    Emitter<RegisterState> emit,
-  ) async {
-    emit(state.copyWith(isLoading: true));
-    final result = await _registerUseCase.call(RegisterUserParams(
-      fname: event.fName,
-      lname: event.lName,
-      phone: event.phone,
-      email: event.email,
-      password: event.password,
-      image: state.imageName,
-    ));
-
-    result.fold(
-      (l) {
-        emit(state.copyWith(isLoading: false, isSuccess: false));
-        showMySnackBar(
-            context: event.context, message: l.message, color: Colors.red);
-      },
-      (r) {
-        emit(state.copyWith(isLoading: false, isSuccess: true));
-        showMySnackBar(
-            context: event.context, message: "Registration Successful");
-      },
-    );
-  }
-
-  void _onLoadImage(
-    UploadImage event,
-    Emitter<RegisterState> emit,
-  ) async {
+  void _onLoadImage(LoadImage event, Emitter<RegisterState> emit) async {
     emit(state.copyWith(isLoading: true));
     final result = await _uploadImageUsecase.call(
       UploadImageParams(
@@ -67,6 +50,34 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       (l) => emit(state.copyWith(isLoading: false, isSuccess: false)),
       (r) {
         emit(state.copyWith(isLoading: false, isSuccess: true, imageName: r));
+      },
+    );
+  }
+
+  void _onRegisterEvent(
+    RegisterUser event,
+    Emitter<RegisterState> emit,
+  ) async {
+    emit(state.copyWith(isLoading: true));
+    final result = await _registerUseCase.call(RegisterUserParams(
+        name: event.name,
+        email: event.email,
+        phone: event.phone,
+        image: state.imageName,
+        password: event.password));
+
+    result.fold(
+      (l) => emit(state.copyWith(isLoading: false, isSuccess: false)),
+      (r) {
+        emit(state.copyWith(isLoading: false, isSuccess: true));
+        showMySnackBar(
+            context: event.context, message: "Registration successful");
+
+        // ✅ Navigate to LoginView after successful registration
+        Navigator.pushReplacement(
+          event.context,
+          MaterialPageRoute(builder: (context) => LoginView()),
+        );
       },
     );
   }

@@ -1,57 +1,52 @@
+import 'package:e_learning/app/constants/hive_table_constant.dart';
+import 'package:e_learning/features/auth/domain/entity/auth_entity.dart';
 import 'package:equatable/equatable.dart';
-import 'package:hive_flutter/adapters.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:uuid/uuid.dart';
-import 'package:wise_academy/app/constants/hive_table_constant.dart';
-import 'package:wise_academy/features/auth/domain/entity/auth_entity.dart';
 
 part 'auth_hive_model.g.dart';
 
-@HiveType(typeId: HiveTableConstant.customerTableId)
+@HiveType(typeId: HiveTableConstant.userTableId)
 class AuthHiveModel extends Equatable {
   @HiveField(0)
-  final String? customerId;
+  final String? studentId;
   @HiveField(1)
-  final String fName;
+  final String email;
   @HiveField(2)
-  final String lName;
+  final String name;
   @HiveField(3)
   final String? image;
   @HiveField(4)
   final String phone;
   @HiveField(5)
-  final String email;
-  @HiveField(6)
   final String password;
 
   AuthHiveModel({
-    String? customerId,
-    required this.fName,
-    required this.lName,
-    this.image,
-    required this.phone,
+    String? studentId,
     required this.email,
+    required this.name,
+    required this.phone,
+    this.image,
     required this.password,
-  }) : customerId = customerId ?? const Uuid().v4();
+  }) : studentId = studentId ?? const Uuid().v4();
 
   // Initial Constructor
   const AuthHiveModel.initial()
-      : customerId = '',
-        fName = '',
-        lName = '',
-        image = '',
-        phone = '',
+      : studentId = '',
         email = '',
+        name = '',
+        phone = '',
+        image = '',
         password = '';
 
   // From Entity
   factory AuthHiveModel.fromEntity(AuthEntity entity) {
     return AuthHiveModel(
-      customerId: entity.userId,
-      fName: entity.fName,
-      lName: entity.lName,
-      image: entity.image,
-      phone: entity.phone,
+      studentId: entity.userId,
       email: entity.email,
+      name: entity.name,
+      phone: entity.phone,
+      image: entity.image,
       password: entity.password,
     );
   }
@@ -59,17 +54,22 @@ class AuthHiveModel extends Equatable {
   // To Entity
   AuthEntity toEntity() {
     return AuthEntity(
-      userId: customerId,
-      fName: fName,
-      lName: lName,
-      image: image,
-      phone: phone,
+      userId: studentId,
       email: email,
+      name: name,
+      phone: phone,
+      image: image,
       password: password,
     );
   }
 
   @override
-  List<Object?> get props =>
-      [customerId, fName, lName, image, phone, email, password];
+  List<Object?> get props => [
+        studentId,
+        email,
+        name,
+        phone,
+        image,
+        password,
+      ];
 }

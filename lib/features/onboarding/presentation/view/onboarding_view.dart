@@ -1,173 +1,202 @@
+import 'package:e_learning/app/di/di.dart';
+import 'package:e_learning/app/shared_prefs/onboarding_shared_prefs.dart';
+import 'package:e_learning/features/auth/presentation/view/register_view.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter/services.dart';
 
-import '../view_model/onboarding_cubit.dart';
-
-class OnboardingView extends StatefulWidget {
-  const OnboardingView({super.key});
+class OnboardingPage extends StatefulWidget {
+  const OnboardingPage({super.key});
 
   @override
-  State<OnboardingView> createState() => _OnboardingScreenState();
+  State<OnboardingPage> createState() => _OnboardingPageState();
 }
 
-class _OnboardingScreenState extends State<OnboardingView> {
+class _OnboardingPageState extends State<OnboardingPage> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
 
-  final List<Map<String, String>> _onboardingData = [
-    {
-      "image": "assets/images/onboard1.png",
-      "title": "Welcome",
-      "description":
-          "Your learning journey starts here. Unlock new skills, learn at your own pace, and grow with us!"
-    },
-    {
-      "image": "assets/images/onboard2.png",
-      "title": "Start Learning with Wise Academy",
-      "description":
-          "Explore a world of knowledge and take control of your learning path today!"
-    },
-    {
-      "image": "assets/images/onboard3.png",
-      "title": "Learn Anytime, Anywhere",
-      "description":
-          "Join Wise Academy and access personalized courses to help you succeed, on your terms."
-    },
-  ];
-
-  void _goToLoginPage(BuildContext context) {
-    context.read<OnboardingCubit>().init(context);
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Column(
-          children: [
-            Expanded(
-              child: PageView.builder(
-                controller: _pageController,
-                onPageChanged: (index) {
-                  setState(() {
-                    _currentPage = index;
-                  });
-                },
-                itemCount: _onboardingData.length,
-                itemBuilder: (context, index) {
-                  return _buildOnboardingPage(
-                    image: _onboardingData[index]['image']!,
-                    title: _onboardingData[index]['title']!,
-                    description: _onboardingData[index]['description']!,
-                  );
-                },
-              ),
+      body: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SystemUiOverlayStyle.light,
+        child: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color.fromARGB(255, 255, 255, 255), // Light blue
+                Color(0xFFFFFFFF), // White
+              ],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
             ),
-            _buildBottomSection(),
-          ],
+          ),
+          child: Column(
+            children: [
+              Expanded(
+                child: Stack(
+                  children: [
+                    PageView.builder(
+                      controller: _pageController,
+                      onPageChanged: (index) {
+                        setState(() {
+                          _currentPage = index;
+                        });
+                      },
+                      itemCount: onboardingData.length,
+                      itemBuilder: (context, index) {
+                        return _buildOnboardingContent(
+                          image: onboardingData[index]['image']!,
+                          title: onboardingData[index]['title']!,
+                          description: onboardingData[index]['description']!,
+                        );
+                      },
+                    ),
+
+                    // Skip Button (Only on First and Second Page)
+                    if (_currentPage < onboardingData.length - 1)
+                      Positioned(
+                        top: 50,
+                        right: 20,
+                        child: GestureDetector(
+                          onTap: () {
+                            _pageController
+                                .jumpToPage(onboardingData.length - 1);
+                          },
+                          child: const Text(
+                            "Skip",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+              _buildBottomControls(),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildOnboardingPage({
+  /// **📌 Build Onboarding Content**
+  Widget _buildOnboardingContent({
     required String image,
     required String title,
     required String description,
   }) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        Stack(
-          alignment: Alignment.center,
-          children: [
-            SizedBox(
-              height: 300,
-              width: 300,
-              // decoration: BoxDecoration(
-              //   color: Colors.deepPurple.shade50,
-              //   shape: BoxShape.circle,
-              // ),
-            ),
-            Image.asset(
-              image,
-              height: 220,
-              width: 220,
-              fit: BoxFit.contain,
-            ),
-          ],
-        ),
-        const SizedBox(height: 20),
-        Text(
-          title,
-          textAlign: TextAlign.center,
-          style: const TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: Text(
-            description,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 16,
-              color: Colors.black,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildBottomSection() {
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Column(
         children: [
+          Expanded(
+            flex: 5,
+            child: Image.asset(
+              image,
+              fit: BoxFit.contain,
+            ),
+          ),
+          Expanded(
+            flex: 2,
+            child: Column(
+              children: [
+                Text(
+                  title,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+                const SizedBox(height: 15),
+                Text(
+                  description,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    color: Colors.black87,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// **📌 Bottom Navigation Controls**
+  Widget _buildBottomControls() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 30.0),
+      child: Column(
+        children: [
+          // **Dot Indicator**
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: List.generate(
-              _onboardingData.length,
+              onboardingData.length,
               (index) => _buildDot(index),
             ),
           ),
           const SizedBox(height: 20),
-          SizedBox(
+
+          // **Gradient Button**
+          Container(
             width: double.infinity,
+            height: 50,
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                colors: [Colors.blueAccent, Colors.blueAccent],
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+              ),
+              borderRadius: BorderRadius.circular(10.0),
+            ),
             child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.transparent,
+                shadowColor: Colors.transparent,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
               onPressed: () {
-                if (_currentPage == _onboardingData.length - 1) {
-                  context.read<OnboardingCubit>().init(context);
+                if (_currentPage == onboardingData.length - 1) {
+                  getIt<OnboardingSharedPrefs>().saveFirstTime();
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const RegisterView()),
+                  );
                 } else {
                   _pageController.nextPage(
                     duration: const Duration(milliseconds: 300),
-                    curve: Curves.ease,
+                    curve: Curves.easeInOut,
                   );
                 }
               },
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(vertical: 14),
-              ),
               child: Text(
-                _currentPage == _onboardingData.length - 1
-                    ? "Get Started"
-                    : "Next",
-                style: const TextStyle(fontSize: 18, color: Colors.white),
-              ),
-            ),
-          ),
-          const SizedBox(height: 10),
-          TextButton(
-            onPressed: () => _goToLoginPage(context),
-            child: const Text(
-              "Skip",
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.grey,
+                _currentPage == onboardingData.length - 1
+                    ? 'Get Started'
+                    : 'Next',
+                style: const TextStyle(
+                  fontSize: 18,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ),
@@ -176,16 +205,40 @@ class _OnboardingScreenState extends State<OnboardingView> {
     );
   }
 
+  /// **📌 Dot Indicator**
   Widget _buildDot(int index) {
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 300),
+    return Container(
       margin: const EdgeInsets.symmetric(horizontal: 5),
-      height: 8,
-      width: _currentPage == index ? 20 : 8,
+      height: 10,
+      width: _currentPage == index ? 20 : 10,
       decoration: BoxDecoration(
-        color: _currentPage == index ? Colors.blue : Colors.grey.shade300,
-        borderRadius: BorderRadius.circular(4),
+        color: _currentPage == index
+            ? const Color.fromARGB(255, 0, 123, 247)
+            : const Color.fromARGB(255, 0, 123, 247),
+        borderRadius: BorderRadius.circular(10),
       ),
     );
   }
 }
+
+/// **📌 Onboarding Data (Images & Texts)**
+const List<Map<String, String>> onboardingData = [
+  {
+    'image': 'assets/images/onboard1.png',
+    'title': 'Enter the World of E-Learning',
+    'description':
+        "Your learning journey starts here. Unlock new skills, learn at your own pace, and grow with us!"
+  },
+  {
+    'image': 'assets/images/onboard1.png',
+    'title': 'Embark on Your Learning Adventure',
+    'description':
+        "Explore a world of knowledge and take control of your learning path today!"
+  },
+  {
+    'image': 'assets/images/onboard3.png',
+    'title': 'Unlock Your Learning Potential',
+    'description':
+        "Join Wise Academy and access personalized courses to help you succeed, on your terms."
+  },
+];
