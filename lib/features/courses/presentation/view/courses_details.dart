@@ -24,7 +24,7 @@ class CourseDetailsScreen extends StatefulWidget {
     required this.rating,
     this.videoUrl,
   });
-
+//
   @override
   _CourseDetailsScreenState createState() => _CourseDetailsScreenState();
 }
