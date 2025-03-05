@@ -26,6 +26,7 @@ class CourseDetailsScreen extends StatefulWidget {
   });
 //
 //
+// 
   @override
   _CourseDetailsScreenState createState() => _CourseDetailsScreenState();
 }
