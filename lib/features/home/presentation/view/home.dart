@@ -25,11 +25,19 @@ class _HomeScreenState extends State<HomeScreen> {
   bool isLoading = true;
   bool showAllCourses = false;
   // Shake detection variables
+  // StreamSubscription<AccelerometerEvent>? _accelerometerSubscription;
+  // double _lastX = 0.0;
+  // static const double _shakeThreshold = 15.0;
+  // DateTime? _lastShakeTime;
+  // static const int _shakeCooldown = 500;
   StreamSubscription<AccelerometerEvent>? _accelerometerSubscription;
   double _lastX = 0.0;
-  static const double _shakeThreshold = 15.0;
+  static const double _shakeThreshold = 5.0;
   DateTime? _lastShakeTime;
   static const int _shakeCooldown = 500;
+
+  double _shakeOffsetX = 0.0;
+  double _shakeOffsetY = 0.0;
 
   // Brightness control variables
   double _originalBrightness = 0.5;
@@ -42,18 +50,17 @@ class _HomeScreenState extends State<HomeScreen> {
     _startShakeDetection();
     _getCurrentBrightness();
   }
-// Toggle for "SEE ALL" and "SHOW LESS"
 
   // ✅ Fetch Courses from Backend
   Future<void> fetchCourses() async {
     try {
       final response =
-          await http.get(Uri.parse("http://192.168.18.29:5003/courses/all"));
+          await http.get(Uri.parse("http://172.25.0.212:5003/courses/all"));
 
       if (response.statusCode == 200) {
         List<dynamic> courses = json.decode(response.body);
         setState(() {
-          popularCourses = courses.take(5).toList(); // Take first 5 courses
+          popularCourses = courses.take(5).toList();
           isLoading = false;
         });
       } else {
@@ -76,12 +83,27 @@ class _HomeScreenState extends State<HomeScreen> {
         return;
       }
       final double deltaX = event.x - _lastX;
+
       if (deltaX.abs() > _shakeThreshold) {
         setState(() {
-          showAllCourses = !showAllCourses;
+          showAllCourses = !showAllCourses; // ✅ Toggle "SEE ALL"
+
+          // ✅ Apply shake effect by changing the offset
+          _shakeOffsetX = 0.0;
+          _shakeOffsetY = 0.0;
+
+          // ✅ Reset shake effect after a short duration
+          Future.delayed(const Duration(milliseconds: 300), () {
+            setState(() {
+              _shakeOffsetX = 0.0;
+              _shakeOffsetY = 0.0;
+            });
+          });
         });
+
         _lastShakeTime = now;
       }
+
       _lastX = event.x;
     });
   }
@@ -127,47 +149,54 @@ class _HomeScreenState extends State<HomeScreen> {
     if (imagePath == null || imagePath.isEmpty) {
       return "https://via.placeholder.com/150"; // Placeholder image
     }
-    return "http://192.168.18.29:5003${imagePath.trim()}"; // Full URL
+    return "http://172.25.0.212:5003${imagePath.trim()}"; // Full URL
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: _buildAppBar(),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 20),
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 100), // ✅ Smooth shake effect
+      transform: Matrix4.translationValues(_shakeOffsetX, _shakeOffsetY, 0),
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: _buildAppBar(),
+        body: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 20),
 
-            // ✅ Title
-            const Text(
-              "What would you like to learn today?",
-              style: TextStyle(fontSize: 16, color: Colors.black54),
-            ),
-            const SizedBox(height: 15),
+              // ✅ Title
+              const Text(
+                "What would you like to learn today?",
+                style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.black54,
+                    fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 15),
 
-            // ✅ Search Bar
-            _buildSearchBar(),
+              // ✅ Search Bar
+              _buildSearchBar(),
 
-            const SizedBox(height: 20),
+              const SizedBox(height: 20),
 
-            // ✅ Discount Banner
-            _buildImageCarousel(),
+              // ✅ Discount Banner
+              _buildImageCarousel(),
 
-            const SizedBox(height: 20),
+              const SizedBox(height: 20),
 
-            // ✅ Categories Section
+              // ✅ Categories Section
 
-            const SizedBox(height: 20),
+              const SizedBox(height: 20),
 
-            // ✅ Popular Courses Section
-            _buildPopularCourses(),
+              // ✅ Popular Courses Section
+              _buildPopularCourses(),
 
-            const SizedBox(height: 20),
-          ],
+              const SizedBox(height: 20),
+            ],
+          ),
         ),
       ),
     );
@@ -177,7 +206,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return AppBar(
       backgroundColor: Colors.blue, // Set the background color to blue
       elevation: 0,
-      automaticallyImplyLeading: false,
+      automaticallyImplyLeading: true,
       title: const Align(
         alignment: Alignment.centerLeft,
         child: Padding(
@@ -197,7 +226,7 @@ class _HomeScreenState extends State<HomeScreen> {
           padding: const EdgeInsets.only(right: 10),
           child: IconButton(
             onPressed: () => logoutUser(context),
-            icon: const Icon(Icons.logout, color: Colors.black),
+            icon: const Icon(Icons.logout, color: Colors.white),
           ),
         ),
       ],
@@ -257,7 +286,11 @@ class _HomeScreenState extends State<HomeScreen> {
               showAllCourses = !showAllCourses; // Toggle between show/hide
             });
           },
-          child: Text(showAllCourses ? "SHOW LESS" : "SEE ALL"),
+          child: Text(
+            showAllCourses ? "SHOW LESS" : "SEE ALL",
+            style: const TextStyle(
+                fontWeight: FontWeight.bold, color: Colors.black),
+          ),
         ),
       ],
     );
@@ -294,38 +327,6 @@ class _HomeScreenState extends State<HomeScreen> {
       ],
     );
   }
-
-  // ✅ Course Card (Dynamically Loaded)
-//   Widget _courseItem(dynamic course) {
-//     return Card(
-//       elevation: 3,
-//       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-//       child: Padding(
-//         padding: const EdgeInsets.all(10),
-//         child: Column(
-//           crossAxisAlignment: CrossAxisAlignment.start,
-//           children: [
-//             ClipRRect(
-//               borderRadius: BorderRadius.circular(10),
-//               child: Image.network(
-//                 getImageUrl(course["image"]),
-//                 height: 100,
-//                 fit: BoxFit.cover,
-//               ),
-//             ),
-//             const SizedBox(height: 10),
-//             Text(course["title"] ?? "No title"),
-
-//             Text(
-//               "${course["price"] ?? "N/A"}/-",
-//               style: const TextStyle(fontSize: 14, color: Colors.blue),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
 
   Widget _courseItem(dynamic course) {
     String formatPrice(dynamic price) {
