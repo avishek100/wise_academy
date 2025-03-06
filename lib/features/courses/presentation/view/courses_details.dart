@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:e_learning/features/courses/presentation/view/payment_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -78,8 +79,7 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
 
     try {
       final response = await http.post(
-        Uri.parse(
-            "http://192.168.18.29:5003/cart/add"), // ✅ Update API Endpoint
+        Uri.parse("http://172.25.0.212:5003/cart/add"), // ✅ Update API Endpoint
         headers: {"Content-Type": "application/json"},
         body: jsonEncode({
           "userId": _userId,
@@ -214,9 +214,17 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10)),
                   ),
-                  onPressed: _addToCart,
+                  onPressed: () {
+                    // ✅ Navigate to PaymentScreen when clicking "Add to Cart"
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              const PaymentScreen()), // ✅ Redirects to Payment Screen
+                    );
+                  },
                   child: const Text(
-                    "Add To Cart",
+                    "Enroll",
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,

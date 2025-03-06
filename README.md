@@ -1,4 +1,4 @@
-# wise_academy
+# new_mobile
 
 A new Flutter project.
 

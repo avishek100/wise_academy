@@ -28,7 +28,7 @@ class _CoursesScreenState extends State<CoursesScreen> {
   Future<void> fetchCourses() async {
     try {
       final response =
-          await http.get(Uri.parse("http://192.168.18.29:5003/courses/all"));
+          await http.get(Uri.parse("http://172.25.0.212:5003/courses/all"));
 
       if (response.statusCode == 200) {
         List<dynamic> courses = json.decode(response.body);
@@ -89,7 +89,7 @@ class _CoursesScreenState extends State<CoursesScreen> {
                 // Implement navigation for cart or wishlist
               },
               icon: const Icon(Icons.shopping_cart,
-                  color: Colors.white), // White cart icon
+                  color: Colors.blue), // White cart icon
             ),
           ),
         ],

@@ -3,7 +3,7 @@ class ApiEndpoints {
 
   static const Duration connectionTimeout = Duration(seconds: 5000);
   static const Duration receiveTimeout = Duration(seconds: 5000);
-  static const String baseUrl = "http://192.168.18.29:5003/";
+  static const String baseUrl = "http://10.0.2.2:5003:5003/";
 
   //For iphone
   // static const String baseUrl = "http://localhost:3000/api/v1";
@@ -16,7 +16,7 @@ class ApiEndpoints {
   // static const String getStudentByCourse = "auth/getstudentByCourse/";
   // static const String updateStudent = "auth/updateStudent/";
   // static const String deleteStudent = "auth/deleteStudent/";
-  static const String imageUrl = "http://192.168.18.29:5003/uploads/";
+  static const String imageUrl = "http://10.0.2.2:5003:5003/uploads/";
   static const String uploadImage = "auth/uploadImage";
 
   // ✅ Course Routes
