@@ -22,7 +22,7 @@ class HomeState extends Equatable {
       views: [
         BlocProvider(
           create: (context) => getIt<HomeCubit>(),
-          child: DashboardPageView(),
+          child: DashboardScreen(),
         ),
         const Center(
           child: Text('Wishlist'),

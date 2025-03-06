@@ -1,6 +1,6 @@
 {
-    "name": "abcd",
-    "short_name": "abcd",
+    "name": "new_mobile",
+    "short_name": "new_mobile",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
